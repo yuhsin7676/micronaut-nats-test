@@ -1,0 +1,22 @@
+plugins {
+    id("io.micronaut.application") version "4.1.1"
+}
+
+group 'org.example'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation ("io.micronaut.nats:micronaut-nats")
+    runtimeOnly("ch.qos.logback:logback-classic")
+    implementation("io.micronaut.liquibase:micronaut-liquibase") // for create consumer (???)
+}
+
+micronaut {
+    processing {
+        incremental(true)
+        annotations("org.example.*")
+    }
+}

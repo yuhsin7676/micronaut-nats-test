@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+  nats-1:
+    image: nats
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    command: "--name N1 --cluster_name NATS --cluster nats://0.0.0.0:6222 --http_port 8222 --js --sd /data --routes=nats://ruser:T0pS3cr3t@nats:6222,nats://ruser:T0pS3cr3t@nats-1:6222,nats://ruser:T0pS3cr3t@nats-2:6222"
+    networks: ["test-network"]
+    volumes:
+      - ./jetstream-cluster/n1:/data
+
+  nats-2:
+    image: nats
+    command: "--name N2 --cluster_name NATS --cluster nats://0.0.0.0:6222 --js --sd /data --routes=nats://ruser:T0pS3cr3t@nats:6222,nats://ruser:T0pS3cr3t@nats-1:6222,nats://ruser:T0pS3cr3t@nats-2:6222"
+    networks: ["test-network"]
+    depends_on: ["nats-1"]
+    volumes:
+      - ./jetstream-cluster/n2:/data
+
+  nats-3:
+    image: nats
+    command: "--name N3 --cluster_name NATS --cluster nats://0.0.0.0:6222 --routes=nats://ruser:T0pS3cr3t@nats:6222 --js --sd /data --routes=nats://ruser:T0pS3cr3t@nats:6222,nats://ruser:T0pS3cr3t@nats-1:6222,nats://ruser:T0pS3cr3t@nats-2:6222"
+    networks: ["test-network"]
+    depends_on: ["nats-1"]
+    volumes:
+      - ./jetstream-cluster/n3:/data
+
+networks:
+  test-network:
+    driver: bridge

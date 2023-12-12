@@ -1,0 +1,15 @@
+micronaut:
+  application:
+    name: test-service
+
+nats:
+  default:
+    addresses:
+      - nats://localhost:4222
+    jetstream:
+      streams:
+        test-stream:
+          storage-type: Memory
+          deny-delete: true
+          subjects:
+            - test1.sub1
