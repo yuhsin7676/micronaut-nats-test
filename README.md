@@ -1,5 +1,7 @@
 # Micronaut-nats-test
 
+This branch is solution of issue: https://github.com/micronaut-projects/micronaut-nats/issues/422
+
 File application.yml has the configuration stream "test-stream" with subject "test1.sub1".
 Application progress:
 1) When launched, the application creates a "test-stream" stream with subjects "test1.sub1" and "test1.sub2" in nats using the io.nats:jnats library.
@@ -26,5 +28,5 @@ after: [test1.sub1, test1.sub2]
 Actual output:
 ```
 before: [test1.sub1, test1.sub2]
-after: [test1.sub1]
+after: [test1.sub1, test1.sub2]
 ```

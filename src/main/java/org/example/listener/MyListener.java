@@ -7,7 +7,7 @@ import io.micronaut.nats.jetstream.annotation.PushConsumer;
 @JetStreamListener
 public class MyListener {
 
-    @PushConsumer(deliverGroup = "test", value = "test-stream", subject = "test2.>", durable = "test-listener")
+    @PushConsumer(deliverGroup = "test", value = "test-stream", subject = "test1.sub1", durable = "test-listener")
     public void consumer(Object event) {
         System.out.println(event);
     }
